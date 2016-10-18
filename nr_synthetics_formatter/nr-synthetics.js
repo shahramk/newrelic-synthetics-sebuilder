@@ -57,14 +57,17 @@ builder.selenium2.io.addLangFormatter({
     "  } catch (err) { return false; }\n" +
     "}\n\n" +
     "function isElementSelected(el) { return $browser.findElement(el).isSelected(); }\n\n" + 
+
     "function isTextPresentIn(text, selector) {\n" +
     "  return $browser.findElement(selector)\n" +
     "    .getText()\n" +
     "    .then(function (wholetext) {\n" +
-    "      return wholetext.indexOf(text) != -1;\n" +
-    "    })\n" +
-    "    .catch(function(err) {\n" +
-    "      return false;\n" +
+    "      if (wholetext.indexOf(text) != -1) {\n" +
+    "        return true;\n" +
+    "      }\n" +
+    "      else {\n" +
+    "        throw new Error('text search failed: \"' + text + '\"');\n" +
+    "      }\n" +
     "    });\n" +
     "}\n\n" +
     "function isTextPresent(text) {\n" +
